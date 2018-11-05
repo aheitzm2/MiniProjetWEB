@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Produit;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -16,7 +18,7 @@ class IndexController extends Controller
     /**
      * @Route("/", name="index.index")
      */
-    public function index(Request $request, Environment $twig)
+    public function index(Request $request, Environment $twig, ObjectManager $manager)
     {
 
 //        if(! is_null($this->getUser())){
@@ -33,9 +35,15 @@ class IndexController extends Controller
         }
         if($this->isGranted('ROLE_CLIENT')) {
            // return $this->redirectToRoute('panier.index');
-            return new Response($twig->render('frontOff/frontOFFICE.html.twig'));
+	        $produits = $manager->getRepository(Produit::class)->findAll();
+	        //TODO: Recupérer les éléments du panier pour les afficher
+	        $paniers = array();
+            return $this->render('frontOff/frontOFFICE.html.twig',[
+            	'produits'=>$produits,
+	            'paniers'=>$paniers
+            ]);
         }
-        return new Response($twig->render('accueil.html.twig'));
+        return $this->render('accueil.html.twig');
 
     }
 

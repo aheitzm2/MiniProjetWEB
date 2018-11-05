@@ -1,40 +1,51 @@
 {% extends "base.html.twig" %}
 
-
-
 {% block body %}
-
 	<h1> Projet 2 web : site de vente Espace client </h1>
-
 	<div class="row">
 		<div class="col-7">
 			les produits + liens
 			<table class="table table-bordered">
-				<caption>Produits</caption>
 				<thead>
 				<tr><th>nom</th><th>stock</th><th>type</th><th>prix</th><th>photo</th><th>Ajouter</th>
 				</tr>
 				</thead>
 				<tbody>
+					{% for produit in produits if produits is not empty %}
+						<tr>
+							<td><a href="#">{{ produit.nom }}</a></td>
+							<td>{{ produit.stock }}</td>
+							<td>{{ produit.typeProduitId.getLibelle }}</td>
+							<td>{{ produit.prix }}</td>
+							<td><img src="{{ produit.photo }}"></td>
+							<td><a href="">+</a></td>
+						</tr>
+					{% else %}
+						<tr>Pas de produits disponibles.</tr>
+					{% endfor %}
 				</tbody>
 			</table>
-			les produits + liens
 		</div>
 		<div class="col-5">
 			le panier +liens
 			<table class="table table-bordered">
-				<caption>Panier</caption>
 				<thead>
-				<tr><th>Nom du Produit</th><th>quantite</th><th>prix</th><th>prix total</th><th></th><th>supprimer</th>
+				<tr>
+					<th>Nom du Produit</th><th>quantite</th><th>prix</th><th>prix total</th><th></th><th>supprimer</th>
 				</tr>
 				</thead>
 				<tbody>
+					{% for item in paniers if paniers is not empty %}
+						<tr>
+						{#TODO: Afficher les bonnes lignes pour le tableau quand on aura l'entité Paniers#}
+						</tr>
+					{% else %}
+						<tr>Pas d'élément dans le panier!</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>
-
 	</div>
-
 {% endblock %}
 
 

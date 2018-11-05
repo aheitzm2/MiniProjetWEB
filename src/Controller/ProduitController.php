@@ -46,6 +46,7 @@ class ProduitController extends Controller
     public function showProduit(Request $request, Environment $twig, RegistryInterface $doctrine)
     {
         $produits=$doctrine->getRepository(Produit::class)->findAll();
+        dump($produits);
         return new Response($twig->render('backOff/Produit/showProduits.html.twig', ['produits' => $produits]));
 
     }
