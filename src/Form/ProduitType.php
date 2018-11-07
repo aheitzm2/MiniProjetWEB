@@ -47,8 +47,6 @@ class ProduitType extends AbstractType
                 'required' => false,
                 'placeholder' => 'Choisir un type de produit'
             ))
-
-
             ->add('submit', SubmitType::class)
             ->getForm()
         ;

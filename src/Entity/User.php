@@ -98,6 +98,11 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Panier", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $panier;
+
     public function getRoles()
     {
         if ($this->roles)
@@ -181,6 +186,23 @@ class User implements UserInterface, \Serializable
     {
         // TODO: Implement __toString() method.
         return "username : ".$this->getUsername()." role: ".$this->getRoles()[0]." mdp:".$this->getPassword();
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(Panier $panier): self
+    {
+        $this->panier = $panier;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $panier->getUser()) {
+            $panier->setUser($this);
+        }
+
+        return $this;
     }
 
 }

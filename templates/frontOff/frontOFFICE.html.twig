@@ -15,7 +15,7 @@
 						<tr>
 							<td><a href="#">{{ produit.nom }}</a></td>
 							<td>{{ produit.stock }}</td>
-							<td>{{ produit.typeProduitId.getLibelle }}</td>
+							<td>{{ produit.typeProduitId.getLibelle|default('Pas de type') }}</td>
 							<td>{{ produit.prix }}</td>
 							<td><img src="{{ produit.photo }}"></td>
 							<td><a href="">+</a></td>
@@ -31,16 +31,21 @@
 			<table class="table table-bordered">
 				<thead>
 				<tr>
-					<th>Nom du Produit</th><th>quantite</th><th>prix</th><th>prix total</th><th></th><th>supprimer</th>
+					<th>Nom du Produit</th><th>quantite</th><th>prix</th><th>prix total</th><th>Image</th><th>supprimer</th>
 				</tr>
 				</thead>
 				<tbody>
-					{% for item in paniers if paniers is not empty %}
+					{% for produit in panier.produits if panier.produits is not empty %}
 						<tr>
-						{#TODO: Afficher les bonnes lignes pour le tableau quand on aura l'entité Paniers#}
+							<td>{{ produit.nom }}</td>
+							<td>{{panier.quantite}}</td>
+							<td>{{ produit.prix }}</td>
+							<td>TODO</td>
+							<td>TODO</td>
+							<td><a href="#">Supprimer</a></td>
 						</tr>
 					{% else %}
-						<tr>Pas d'élément dans le panier!</tr>
+						<tr><td colspan="6">Pas d'élément dans le panier!</td></tr>
 					{% endfor %}
 				</tbody>
 			</table>

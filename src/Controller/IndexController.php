@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Panier;
 use App\Entity\Produit;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,10 +38,10 @@ class IndexController extends Controller
            // return $this->redirectToRoute('panier.index');
 	        $produits = $manager->getRepository(Produit::class)->findAll();
 	        //TODO: Recupérer les éléments du panier pour les afficher
-	        $paniers = array();
+	        $panier = $this->getUser()->getPanier();
             return $this->render('frontOff/frontOFFICE.html.twig',[
             	'produits'=>$produits,
-	            'paniers'=>$paniers
+	            'panier'=>$panier
             ]);
         }
         return $this->render('accueil.html.twig');
